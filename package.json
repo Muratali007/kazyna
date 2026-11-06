@@ -1,0 +1,21 @@
+{
+  "name": "family-budget",
+  "version": "1.0.0",
+  "description": "Казына — семейный бюджет: сайт + Telegram-бот",
+  "type": "module",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "test": "node --test --test-concurrency=1 \"test/*.test.js\"",
+    "icons": "node scripts/make-icons.js"
+  },
+  "engines": { "node": ">=22.13" },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.13.1"
+  }
+}

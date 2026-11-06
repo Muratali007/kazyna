@@ -1,0 +1,18 @@
+# Раз в 10 минут обращаемся к сайту, чтобы бесплатный Render не «усыплял» его
+# (засыпает после 15 минут без запросов, и бот перестаёт отвечать сразу).
+# Адрес задаётся в Settings → Secrets and variables → Actions → Variables: SITE_URL
+name: Keep site awake
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    if: ${{ vars.SITE_URL != '' }}
+    steps:
+      - name: Ping
+        run: curl -fsS --max-time 90 --retry 2 --retry-delay 10 "${{ vars.SITE_URL }}/healthz"
