@@ -10,7 +10,7 @@ const MONTHS_IN = ['январе', 'феврале', 'марте', 'апреле
 const MONTHS_SHORT = ['янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
 const KIND = { card: 'Карта', cash: 'Наличные', deposit: 'Депозит', savings: 'Накопления', other: 'Другое' };
 const KIND_EMOJI = { card: '💳', cash: '💵', deposit: '🏦', savings: '🐷', other: '👛' };
-const COLORS = ['#8b5cf6', '#06b6d4', '#f97316', '#22c55e', '#ec4899', '#eab308', '#3b82f6', '#ef4444', '#14b8a6', '#a855f7', '#64748b'];
+const COLORS = ['#17483b', '#5e8c61', '#c47a4a', '#d9a441', '#3f6e9a', '#2e8c88', '#8e5a9b', '#b4637a', '#c4553d', '#6b7f3a', '#4b5a8c', '#9a9184'];
 const GOAL_EMOJI = ['🎯', '🚗', '🏠', '✈️', '💍', '📱', '💻', '🎓', '🛋️', '👶', '🏖️', '🎁'];
 
 const state = { me: null, month: null, ref: null, txf: { type: '', category: '', q: '' }, route: '', arg: '' };
@@ -87,8 +87,44 @@ const I = {
   pie: svg('<path d="M21 12A9 9 0 1 1 12 3v9z"/><path d="M15 3.5A9 9 0 0 1 20.5 9H15z"/>'),
   wallet: svg('<path d="M20 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0 0 4h15v13H5a2 2 0 0 1-2-2V5"/><circle cx="16" cy="14" r="1.3"/>'),
   users: svg('<circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0"/><path d="M16 4a4 4 0 0 1 0 8M22 21a6 6 0 0 0-4-5.6"/>'),
-  gear: svg('<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>'),
+  gear: svg('<path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/>'),
+  x: svg('<path d="M6 6l12 12M18 6 6 18"/>'),
+  chevL: svg('<path d="m15 6-6 6 6 6"/>'),
+  chevR: svg('<path d="m9 6 6 6-6 6"/>'),
+  card: svg('<rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="M2.5 10h19M6.5 15h3"/>'),
+  cash: svg('<rect x="2.5" y="6" width="19" height="12" rx="2.5"/><circle cx="12" cy="12" r="2.6"/><path d="M6 9.5v5M18 9.5v5"/>'),
+  bank: svg('<path d="M3 10 12 4l9 6M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18"/>'),
+  piggy: svg('<path d="M5 11a6 6 0 0 1 6-5h2a6 6 0 0 1 6 5l2 1v3l-2 .5A6 6 0 0 1 16 19v2h-2.5v-1.5h-3V21H8v-2.2A6 6 0 0 1 5 14H3v-3z"/><path d="M10 6.2 9 3.5l3 1.6"/><circle cx="15.5" cy="11" r=".6" fill="currentColor"/>'),
+  coins: svg('<ellipse cx="9" cy="7" rx="6" ry="2.6"/><path d="M3 7v4c0 1.4 2.7 2.6 6 2.6s6-1.2 6-2.6V7"/><path d="M9 13.6v3.8c0 1.4 2.7 2.6 6 2.6s6-1.2 6-2.6v-4c0-1.4-2.7-2.6-6-2.6"/>'),
+  trend: svg('<path d="M3 17 9 11l4 4 8-8"/><path d="M15 7h6v6"/>'),
+  tg: svg('<path d="M21 4 3 11.2l6 2.3M21 4l-3.3 15.5L9 13.5M21 4 9 13.5m0 0v5.2l3-3"/>'),
+  pencil: svg('<path d="M4 20h4L19 9l-4-4L4 16v4zM13.5 6.5l4 4"/>'),
+  check: svg('<path d="m5 12.5 4.5 4.5L19 7.5"/>'),
+  search: svg('<circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/>'),
+  arrowR: svg('<path d="M5 12h14M13 6l6 6-6 6"/>'),
+  download: svg('<path d="M12 4v11M7 10.5l5 5 5-5M5 20h14"/>'),
+  phone: svg('<rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M11 18.5h2"/>'),
+  info: svg('<circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6v.2"/>'),
+  share: svg('<path d="M12 15V3.5M7.5 8 12 3.5 16.5 8M5 12.5V19a1.5 1.5 0 0 0 1.5 1.5h11A1.5 1.5 0 0 0 19 19v-6.5"/>'),
+  copy: svg('<rect x="8.5" y="8.5" width="12" height="12" rx="2.5"/><path d="M15.5 8.5V6A2.5 2.5 0 0 0 13 3.5H6A2.5 2.5 0 0 0 3.5 6v7A2.5 2.5 0 0 0 6 15.5h2.5"/>'),
+  refresh: svg('<path d="M20 11a8 8 0 0 0-14.6-4.5L4 8M4 4v4h4M4 13a8 8 0 0 0 14.6 4.5L20 16M20 20v-4h-4"/>'),
+  logout: svg('<path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4M10 16l-4-4 4-4M6 12h10"/>'),
+  transfer: svg('<path d="M4 8h14l-3.5-3.5M20 16H6l3.5 3.5"/>'),
 };
+const KIND_ICON = { card: I.card, cash: I.cash, deposit: I.bank, savings: I.piggy, other: I.coins };
+// Иллюстрации для пустых экранов: линия — цвет рамок, акцент — золото.
+const ill = (body) => `<svg class="illus" viewBox="0 0 120 90" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${body}</svg>`;
+const ILL = {
+  receipt: ill('<path d="M38 12h44v66l-7-5-7 5-7-5-7 5-7-5-9 5z"/><path d="M47 28h26M47 38h26M47 48h14"/><circle class="acc" cx="84" cy="62" r="12"/><path class="acc" d="M79 62h10M84 57v10"/>'),
+  search: ill('<circle cx="54" cy="42" r="20"/><path d="m69 57 14 14"/><path class="acc" d="M46 42h16"/>'),
+  target: ill('<circle cx="56" cy="46" r="28"/><circle cx="56" cy="46" r="17"/><circle class="acc" cx="56" cy="46" r="6"/><path class="acc" d="m56 46 30-30M80 14l6 2 2 6"/>'),
+  bag: ill('<path d="M32 30h56l-5 46H37z"/><path d="M46 30v-6a14 14 0 0 1 28 0v6"/><path class="acc" d="m50 52 7 7 14-14"/>'),
+  link: ill('<path d="M50 54 40 64a10 10 0 0 1-14-14l10-10"/><path d="m70 36 10-10a10 10 0 0 1 14 14L84 50"/><path class="acc" d="M54 30l-4-10M66 60l4 10M44 38l-10-3M76 52l10 3"/>'),
+  family: ill('<circle cx="40" cy="30" r="9"/><circle cx="80" cy="30" r="9"/><path d="M24 70c0-10 7-18 16-18s16 8 16 18M64 70c0-10 7-18 16-18s16 8 16 18"/><circle class="acc" cx="60" cy="50" r="7"/><path class="acc" d="M50 74c0-7 4.5-12 10-12s10 5 10 12"/>'),
+  oops: ill('<circle cx="60" cy="45" r="28"/><path d="M48 38h.1M72 38h.1"/><path class="acc" d="M48 58c7-6 17-6 24 0"/>'),
+};
+const empty = (ico, title, text = '') => `<div class="empty">${ILL[ico]}<b>${title}</b>${text}</div>`;
+const note = (html) => `<div class="card note">${I.tg}<div>${html}</div></div>`;
 
 // ---------- API ----------
 class ApiError extends Error {
@@ -153,7 +189,7 @@ function openSheet(title, html, { onClose } = {}) {
   wrap.className = 'sheet-wrap';
   wrap.innerHTML = `<div class="sheet-bg"></div><div class="sheet" role="dialog" aria-modal="true" aria-label="${esc(title)}">
     <div class="handle"></div>
-    <div class="sheet-title"><h3>${esc(title)}</h3><button class="icon-btn" data-close aria-label="Закрыть">✕</button></div>
+    <div class="sheet-title"><h3>${esc(title)}</h3><button class="icon-btn" data-close aria-label="Закрыть">${I.x}</button></div>
     <div class="sheet-body">${html}</div></div>`;
   document.body.appendChild(wrap);
   document.body.style.overflow = 'hidden';
@@ -221,7 +257,7 @@ function confetti() {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const box = document.createElement('div');
   box.className = 'confetti';
-  const cols = ['#facc15', '#8b5cf6', '#22d3ee', '#fb7185', '#34d399'];
+  const cols = ['#d9a441', '#17483b', '#c47a4a', '#5e8c61', '#f3e2bd'];
   box.innerHTML = Array.from({ length: 70 }, (_, i) => `<i style="left:${Math.random() * 100}%;background:${cols[i % cols.length]};animation-delay:${Math.random() * 0.5}s;animation-duration:${1.2 + Math.random()}s"></i>`).join('');
   document.body.appendChild(box);
   setTimeout(() => box.remove(), 2800);
@@ -315,7 +351,7 @@ async function renderScreen(fn, arg, quiet = false) {
   } catch (e) {
     clearTimeout(skel);
     if (my !== renderToken || e.status === 401) return;
-    view.innerHTML = `<div class="view"><div class="card empty"><div class="e-ico">😵</div><p>${esc(e.message)}</p><button class="btn" onclick="location.reload()">Обновить</button></div></div>`;
+    view.innerHTML = `<div class="view"><div class="card">${empty('oops', esc(e.message), '<br><button class="btn" onclick="location.reload()" style="margin-top:12px">Обновить</button>')}</div></div>`;
   }
 }
 const refresh = () => { if (state.me && SCREENS[state.route]) renderScreen(SCREENS[state.route], state.arg, true); };
@@ -363,12 +399,12 @@ function setNav(name) {
   $$('[data-nav]').forEach((a) => a.classList.toggle('on', a.dataset.nav === name || (inMore && a.dataset.nav === 'more' && a.closest('.nav'))));
 }
 function openMore() {
-  const items = [['goals', '🎯', 'Цели'], ['budget', '📊', 'Бюджет'], ['accounts', '🏦', 'Счета'], ['family', '👨‍👩‍👧', 'Семья'], ['settings', '⚙️', 'Настройки'], ['txs', '📋', 'Операции']];
-  const s = openSheet('Меню', `<div class="menu-grid">${items.map(([k, e, l]) => `<a href="${href(k)}"><b>${e}</b>${l}</a>`).join('')}</div>`);
+  const items = [['goals', I.target, 'Цели'], ['budget', I.pie, 'Бюджет'], ['accounts', I.wallet, 'Счета'], ['family', I.users, 'Семья'], ['settings', I.gear, 'Настройки'], ['txs', I.list, 'Операции']];
+  const s = openSheet('Меню', `<div class="menu-grid">${items.map(([k, e, l]) => `<a href="${href(k)}">${e}${l}</a>`).join('')}</div>`);
   $$('a', s.el).forEach((a) => a.addEventListener('click', () => s.close()));
 }
-const topbar = (title, sub = '', right = '') => `<div class="topbar"><div class="grow"><h1>${title}</h1>${sub ? `<div class="sub">${sub}</div>` : ''}</div>${right}</div>`;
-const monthSwitch = (m) => `<div class="month-sw"><button data-mprev aria-label="Предыдущий месяц">‹</button><span>${esc(monthLabel(m))}</span><button data-mnext aria-label="Следующий месяц">›</button></div>`;
+const topbar = (title, sub = '', right = '', eyebrow = '') => `<div class="topbar"><div class="grow">${eyebrow ? `<div class="eyebrow">${esc(eyebrow)}</div>` : ''}<h1>${title}</h1>${sub ? `<div class="sub">${sub}</div>` : ''}</div>${right}</div>`;
+const monthSwitch = (m) => `<div class="month-sw"><button data-mprev aria-label="Предыдущий месяц">${I.chevL}</button><span>${esc(monthLabel(m))}</span><button data-mnext aria-label="Следующий месяц">${I.chevR}</button></div>`;
 function bindMonth(root, get, set) {
   $('[data-mprev]', root)?.addEventListener('click', () => { set(shiftMonth(get(), -1)); renderScreen(SCREENS[state.route], state.arg); });
   $('[data-mnext]', root)?.addEventListener('click', () => { set(shiftMonth(get(), 1)); renderScreen(SCREENS[state.route], state.arg); });
@@ -381,20 +417,20 @@ function txView(t, ref) {
   const to = ref.accounts.find((a) => a.id === t.toAccountId);
   const goal = ref.goals.find((g) => g.id === t.goalId);
   switch (t.type) {
-    case 'expense': return { ico: cat?.emoji || '❔', color: cat?.color || '#64748b', title: cat?.name || 'Без категории', where: acc?.name, amt: money(-t.amount), cls: '' };
-    case 'income': return { ico: cat?.emoji || '💵', color: cat?.color || '#22c55e', title: cat?.name || 'Доход', where: acc?.name, amt: money(t.amount, { sign: true }), cls: 'inc' };
-    case 'transfer': return { ico: '↔️', color: '#06b6d4', title: `${acc?.name || '?'} → ${to?.name || '?'}`, where: 'Перевод', amt: money(t.amount), cls: 'muted' };
-    case 'goal': return { ico: goal?.emoji || '🎯', color: '#facc15', title: `В цель «${goal?.title || '?'}»`, where: acc?.name, amt: money(t.amount), cls: 'muted' };
-    case 'goal_out': return { ico: goal?.emoji || '🎯', color: '#facc15', title: `Из цели «${goal?.title || '?'}»`, where: to?.name, amt: money(t.amount), cls: 'muted' };
-    default: return { ico: '•', color: '#64748b', title: t.type, amt: money(t.amount), cls: '' };
+    case 'expense': return { ico: cat?.emoji || '❔', color: cat?.color || '#9a9184', title: cat?.name || 'Без категории', where: acc?.name, amt: money(-t.amount), cls: '' };
+    case 'income': return { ico: cat?.emoji || '💵', color: cat?.color || '#2f7d55', title: cat?.name || 'Доход', where: acc?.name, amt: money(t.amount, { sign: true }), cls: 'inc' };
+    case 'transfer': return { ico: I.transfer, color: '#3f6e9a', title: `${acc?.name || '?'} → ${to?.name || '?'}`, where: 'Перевод', amt: money(t.amount), cls: 'muted' };
+    case 'goal': return { ico: goal?.emoji || '🎯', color: '#d9a441', title: `В цель «${goal?.title || '?'}»`, where: acc?.name, amt: money(t.amount), cls: 'muted' };
+    case 'goal_out': return { ico: goal?.emoji || '🎯', color: '#d9a441', title: `Из цели «${goal?.title || '?'}»`, where: to?.name, amt: money(t.amount), cls: 'muted' };
+    default: return { ico: '•', color: '#9a9184', title: t.type, amt: money(t.amount), cls: '' };
   }
 }
 function txRow(t, ref, { showDate = false } = {}) {
   const v = txView(t, ref);
   const sub = [t.note, t.userName, v.where].filter(Boolean).map(esc).join(' · ');
   return `<div class="item" data-tx="${t.id}">
-    <div class="ico" style="background:color-mix(in srgb, ${esc(v.color)} 20%, transparent)">${esc(v.ico)}</div>
-    <div class="grow"><div class="t ellipsis">${esc(v.title)}${t.source === 'telegram' ? '<span class="src-tg" title="Из Telegram">✈</span>' : ''}</div><div class="s ellipsis">${sub || '&nbsp;'}</div></div>
+    <div class="ico" style="background:color-mix(in srgb, ${esc(v.color)} 15%, var(--surface));color:${esc(v.color)}">${v.ico.startsWith('<svg') ? v.ico : esc(v.ico)}</div>
+    <div class="grow"><div class="t ellipsis">${esc(v.title)}${t.source === 'telegram' ? '<span class="src-tg" title="Из Telegram">${I.tg}</span>' : ''}</div><div class="s ellipsis">${sub || '&nbsp;'}</div></div>
     <div class="amt num ${v.cls}">${v.amt}${showDate ? `<small>${esc(dayLabel(t.date))}</small>` : ''}</div>
   </div>`;
 }
@@ -441,7 +477,7 @@ async function openTxSheet({ tx = null, type = 'expense', preset = {} } = {}) {
     ${editing ? `<p class="tiny dim center" style="margin:12px 0 0">${tx.source === 'telegram' ? 'Из Telegram' : 'С сайта'}${tx.userName ? ` · ${esc(tx.userName)}` : ''}</p>` : ''}
   </form>`);
   const f = $('form', s.el);
-  const accSelect = (name, label, val, exclude) => `<label class="field grow"><span>${label}</span><select class="input" name="${name}">${accs.filter((a) => a.id !== exclude || a.id === val).map((a) => `<option value="${a.id}" ${a.id === val ? 'selected' : ''}>${esc(a.emoji || KIND_EMOJI[a.kind])} ${esc(a.name)} · ${money(a.balance)}</option>`).join('')}</select></label>`;
+  const accSelect = (name, label, val, exclude) => `<label class="field grow"><span>${label}</span><select class="input" name="${name}">${accs.filter((a) => a.id !== exclude || a.id === val).map((a) => `<option value="${a.id}" ${a.id === val ? 'selected' : ''}>${esc(a.name)} · ${money(a.balance)}</option>`).join('')}</select></label>`;
 
   function paint() {
     $$('[data-t]', f).forEach((b) => b.classList.toggle('on', b.dataset.t === t));
@@ -532,11 +568,11 @@ SCREENS.home = async () => {
       <div class="grow">
         <div class="label">${hasBudget ? (over ? `Перерасход в ${monthIn(m)}` : isCur ? 'Осталось на месяц' : `Осталось в ${monthIn(m)}`) : `Потрачено в ${monthIn(m)}`}</div>
         <div class="big">${hasBudget ? counted(Math.abs(s.remaining), { cls: over ? 'exp' : '' }) : counted(s.spent)}</div>
-        <div class="meta">${hasBudget ? `Потрачено ${money(s.spent)} из ${money(s.budget)}` : s.income ? `Доходы ${money(s.income, { sign: true })}` : 'Бюджет не задан · <a href="#/budget">задать</a>'}</div>
+        <div class="meta">${hasBudget ? `Потрачено <b>${money(s.spent)}</b> из ${money(s.budget)}` : s.income ? `Доходы ${money(s.income, { sign: true })}` : 'Бюджет не задан · <a href="#/budget">задать</a>'}</div>
         <div class="row" style="margin-top:10px;flex-wrap:wrap;gap:6px">
           ${isCur && hasBudget && s.perDay > 0 ? `<span class="pill">≈ ${money(Math.floor(s.perDay))} в день · ${s.daysLeft} ${plural(s.daysLeft, 'день', 'дня', 'дней')}</span>` : ''}
-          ${over ? `<span class="pill bad">🚨 бюджет превышен</span>` : ''}
-          ${diff !== null && s.spent > 0 ? `<span class="pill ${diff <= 0 ? 'good' : 'warn'}">${diff <= 0 ? '↓' : '↑'} ${Math.abs(diff)}% к ${monthShort(shiftMonth(m, -1))}</span>` : ''}
+          ${over ? `<span class="pill bad">бюджет превышен</span>` : ''}
+          ${diff !== null && s.spent > 0 && !isCur ? `<span class="pill ${diff <= 0 ? 'good' : 'warn'}">${diff <= 0 ? '↓' : '↑'} ${Math.abs(diff)}% к ${monthShort(shiftMonth(m, -1))}</span>` : ''}
         </div>
       </div>
       ${ring(p, { label: `${Math.round(p * 100)}%`, sub: hasBudget ? 'бюджета' : s.income ? 'от доходов' : 'потрачено', over })}
@@ -544,14 +580,14 @@ SCREENS.home = async () => {
   </div>`;
 
   const tiles = `<div class="tiles span">
-    <div class="tile" data-go="#/accounts"><div class="t-label">💳 Доступно</div><div class="t-val">${counted(s.totals.available)}</div></div>
-    <div class="tile" data-go="#/accounts"><div class="t-label">🏦 Депозит</div><div class="t-val">${counted(s.totals.deposit)}</div></div>
-    <div class="tile" data-go="#/goals"><div class="t-label">🎯 В целях</div><div class="t-val">${counted(s.totals.inGoals)}</div></div>
-    <div class="tile" data-go="#/txs" data-type="income"><div class="t-label">📈 Доходы</div><div class="t-val inc">${counted(s.income, { sign: true })}</div></div>
+    <div class="tile" data-go="#/accounts"><div class="t-label">${I.card}Доступно</div><div class="t-val">${counted(s.totals.available)}</div></div>
+    <div class="tile" data-go="#/accounts"><div class="t-label">${I.bank}Депозит</div><div class="t-val">${counted(s.totals.deposit)}</div></div>
+    <div class="tile" data-go="#/goals"><div class="t-label">${I.target}В целях</div><div class="t-val">${counted(s.totals.inGoals)}</div></div>
+    <div class="tile" data-go="#/txs" data-type="income"><div class="t-label">${I.trend}Доходы</div><div class="t-val inc">${counted(s.income, { sign: true })}</div></div>
   </div>`;
 
   const tgBanner = !me.telegram.linked ? `<div class="banner span" data-go="#/family">
-    <div class="b-ico">✈️</div><div class="grow"><b>Пишите траты в Telegram</b><div class="small muted">«продукты 5400» — и всё посчитается само. Привяжите аккаунт →</div></div></div>` : '';
+    <div class="b-ico">${I.tg}</div><div class="grow"><b>Пишите траты в Telegram</b><div class="small muted">«продукты 5400» — и всё посчитается само</div></div>${I.chevR.replace('<svg', '<svg class="arrow"')}</div>` : '';
 
   const exp = s.categories.filter((c) => c.kind === 'expense' && c.amount > 0).sort((a, b) => b.amount - a.amount);
   const top = exp.slice(0, 6);
@@ -560,9 +596,9 @@ SCREENS.home = async () => {
     <div class="card-head"><h2>Расходы по категориям</h2><a href="#/budget">Лимиты</a></div>
     ${top.length ? `<div class="chart-box"><div class="donut-wrap">
       ${donut(top.map((c) => ({ value: c.amount, color: c.color, name: `${c.name} — ${money(c.amount)} (${pct(c.amount, s.spent)}%)`, emoji: c.emoji })), { center: short(s.spent), sub: cur() })}
-      <ul class="legend">${top.map((c) => `<li data-cat="${c.id}" style="cursor:pointer"><span class="dot" style="background:${esc(c.color)}"></span><span class="ellipsis">${esc(c.emoji)} ${esc(c.name)}</span><span class="v num">${pct(c.amount, s.spent)}%</span></li>`).join('')}</ul>
+      <ul class="legend">${top.map((c) => `<li data-cat="${c.id}" style="cursor:pointer"><span class="dot" style="background:${esc(c.color)}"></span><span class="ellipsis">${esc(c.name)}</span><span class="v num">${pct(c.amount, s.spent)}%</span></li>`).join('')}</ul>
     </div><div class="chart-tip">Нажмите на сегмент</div></div>`
-    : `<div class="empty"><div class="e-ico">🧾</div>Трат пока нет.<br><span class="small">Нажмите «+» или напишите боту «продукты 5000»</span></div>`}
+    : empty('receipt', 'Трат пока нет', '<span class="small">Нажмите «+» или напишите боту <span class="kbd">продукты 5000</span></span>')}
   </div>`;
 
   const daysPassed = isCur ? Number(today().slice(8)) : m < curMonth() ? s.daysInMonth : 0;
@@ -577,8 +613,8 @@ SCREENS.home = async () => {
     ${s.members.map((x) => `<div class="row" style="margin-bottom:10px">${avatar(x, 'sm')}<div class="grow"><div class="row between small"><b>${esc(x.name)}</b><span class="num">${money(x.spent)}</span></div>
       <div class="progress" style="margin-top:5px"><i style="width:${pct(x.spent, s.spent)}%;background:${esc(x.color)}"></i></div></div></div>`).join('')}</div>` : '';
 
-  const plansCard = `<div class="card"><div class="card-head"><h2>🛍 Покупки на месяц</h2><a href="#/plans">Список</a></div>
-    ${s.plans.count ? `<div class="row between"><div><div class="small muted">Осталось купить</div><div style="font-size:20px;font-weight:800" class="num">${money(s.plans.left)}</div></div>
+  const plansCard = `<div class="card"><div class="card-head"><h2>Покупки на месяц</h2><a href="#/plans">Список</a></div>
+    ${s.plans.count ? `<div class="row between"><div><div class="small muted">Осталось купить</div><div style="font-size:24px;font-weight:600" class="num">${money(s.plans.left)}</div></div>
       <div class="pill">${s.plans.done} из ${s.plans.count}</div></div>
       <div class="progress" style="margin:10px 0 6px"><i style="width:${pct(s.plans.done, s.plans.count)}%"></i></div>
       ${hasBudget && isCur ? `<div class="small ${s.remaining - s.plans.left < 0 ? 'exp' : 'muted'}">После всех покупок останется ${money(s.remaining - s.plans.left)}</div>` : ''}`
@@ -586,19 +622,20 @@ SCREENS.home = async () => {
   </div>`;
 
   const goals = s.goals.filter((g) => !g.done).slice(0, 3);
-  const goalsCard = `<div class="card"><div class="card-head"><h2>🎯 Цели</h2><a href="#/goals">Все</a></div>
-    ${goals.length ? goals.map((g) => `<div style="margin-bottom:12px"><div class="row between small"><b>${esc(g.emoji)} ${esc(g.title)}</b><span class="num muted">${money(g.saved)} / ${short(g.target)}</span></div>
-      <div class="progress" style="margin-top:6px"><i style="width:${Math.min(100, pct(g.saved, g.target))}%;background:linear-gradient(90deg,#facc15,#f97316)"></i></div></div>`).join('')
-    : '<div class="small muted">Поставьте цель — машина, отпуск, ремонт — и откладывайте на неё.</div>'}
+  const goalsCard = `<div class="card"><div class="card-head"><h2>Цели</h2><a href="#/goals">Все</a></div>
+    ${goals.length ? goals.map((g) => `<div style="margin-bottom:12px"><div class="row between small"><span><span style="margin-right:6px">${esc(g.emoji)}</span><b>${esc(g.title)}</b></span><span class="num muted">${money(g.saved)} / ${short(g.target)}</span></div>
+      <div class="progress gold" style="margin-top:7px"><i style="width:${Math.min(100, pct(g.saved, g.target))}%"></i></div></div>`).join('')
+    : '<div class="small muted">Поставьте цель — машина, отпуск, ремонт — и откладывайте понемногу.</div>'}
   </div>`;
 
   const recent = `<div class="card span"><div class="card-head"><h2>Последние операции</h2><a href="#/txs">Все</a></div>
-    ${s.recent.length ? `<div class="list">${s.recent.map((t) => txRow(t, ref, { showDate: true })).join('')}</div>` : '<div class="empty small">Пока пусто</div>'}</div>`;
+    ${s.recent.length ? `<div class="list">${s.recent.map((t) => txRow(t, ref, { showDate: true })).join('')}</div>` : empty('receipt', 'Пока пусто')}</div>`;
 
   const hour = new Date().getHours();
   const hi = hour < 5 ? 'Доброй ночи' : hour < 12 ? 'Доброе утро' : hour < 18 ? 'Добрый день' : 'Добрый вечер';
+  const dateLine = new Date(`${today()}T12:00:00`).toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' });
   return {
-    html: `${topbar(`${hi}, ${esc(me.name.split(' ')[0])}`, esc(s.family.name), monthSwitch(m))}
+    html: `${topbar(`${hi}, ${esc(me.name.split(' ')[0])}`, esc(s.family.name), monthSwitch(m), dateLine)}
       <div class="grid-2">${hero}${tgBanner}${tiles}${donutCard}${barsCard}${plansCard}${goalsCard}${trendCard}${members}${recent}</div>`,
     mount(root) {
       bindMonth(root, () => state.month, (v) => { state.month = v; });
@@ -645,13 +682,13 @@ SCREENS.txs = async () => {
         <div class="tile"><div class="t-label">Доходы</div><div class="t-val inc">${counted(data.sums.income, { sign: true })}</div></div></div>
       <div class="chips scroll">${types.map(([k, l]) => `<button class="chip ${f.type === k ? 'on' : ''}" data-ty="${k}">${l}</button>`).join('')}</div>
       <div class="two" style="margin-bottom:12px">
-        <input class="input" type="search" placeholder="🔎 Поиск по комментарию" value="${esc(f.q)}" data-q>
+        <label class="search">${I.search}<input class="input" type="search" placeholder="Поиск по комментарию" value="${esc(f.q)}" data-q></label>
         <select class="input" data-cf ${f.type === 'transfer' || f.type === 'goal' ? 'disabled' : ''}><option value="">Все категории</option>${cats.map((c) => `<option value="${c.id}" ${String(c.id) === f.category ? 'selected' : ''}>${esc(c.emoji)} ${esc(c.name)}</option>`).join('')}</select>
       </div>
       <div class="card">${items.length ? `<div class="list" data-list>${groups(items)}</div>
         ${data.total > items.length ? '<button class="btn block ghost" data-more style="margin-top:10px">Показать ещё</button>' : ''}`
-    : `<div class="empty"><div class="e-ico">🔍</div>Ничего не найдено</div>`}</div>
-      <div class="row" style="justify-content:center"><a class="link-btn" href="/api/export.csv?month=${m}" download>⬇️ Скачать CSV за ${esc(monthLabel(m))}</a></div>`,
+    : empty('search', 'Ничего не найдено', '<span class="small">Попробуйте другой месяц или фильтр</span>')}</div>
+      <div class="row" style="justify-content:center"><a class="link-btn" href="/api/export.csv?month=${m}" download>${I.download.replace('<svg', '<svg class="i"')} Скачать CSV за ${esc(monthLabel(m))}</a></div>`,
     mount(root) {
       bindMonth(root, () => state.month, (v) => { state.month = v; });
       bindTxRows(root, items);
@@ -694,7 +731,7 @@ SCREENS.budget = async () => {
     const p = c.limit ? spent / c.limit : 0;
     const cls = p > 1 ? 'over' : p >= 0.8 ? 'warn' : '';
     return `<div class="item" data-cat="${c.id}" style="flex-wrap:wrap">
-      <div class="ico" style="background:color-mix(in srgb, ${esc(c.color)} 20%, transparent)">${esc(c.emoji)}</div>
+      <div class="ico" style="background:color-mix(in srgb, ${esc(c.color)} 15%, var(--surface))">${esc(c.emoji)}</div>
       <div class="grow"><div class="row between"><span class="t ellipsis">${esc(c.name)}</span><span class="num small"><b>${money(spent)}</b>${c.limit ? ` <span class="muted">/ ${money(c.limit)}</span>` : ''}</span></div>
         ${c.limit ? `<div class="progress ${cls}" style="margin-top:6px"><i style="width:${Math.min(100, p * 100)}%"></i></div>
           <div class="tiny ${p > 1 ? 'exp' : 'muted'}" style="margin-top:4px">${p > 1 ? `превышен на ${money(spent - c.limit)}` : `осталось ${money(c.limit - spent)}`}</div>`
@@ -726,7 +763,7 @@ SCREENS.budget = async () => {
         <div class="list">${inc.map(catRow).join('')}</div>
       </div>
       ${archived.length ? `<div class="card"><div class="card-head"><h2>Архив</h2></div>${archived.map((c) => `<div class="row between small" style="padding:6px 0"><span>${esc(c.emoji)} ${esc(c.name)}</span><button class="link-btn" data-restore="${c.id}">Вернуть</button></div>`).join('')}</div>` : ''}
-      <div class="card small muted">💡 Ключевые слова помогают боту угадывать категорию: если в категории «Продукты» есть слово «magnum», то сообщение «magnum 7000» попадёт туда.</div>
+      ${note('Ключевые слова помогают боту угадывать категорию: если в категории «Продукты» есть слово «magnum», то сообщение <span class="kbd">magnum 7000</span> попадёт туда.')}
       </div>`,
     mount(root) {
       bindMonth(root, () => state.month, (v) => { state.month = v; });
@@ -761,7 +798,7 @@ function openCategorySheet(c, kind = 'expense') {
   let color = c?.color || COLORS[0];
   const s = openSheet(c ? 'Категория' : k === 'income' ? 'Новая категория доходов' : 'Новая категория расходов', `<form autocomplete="off">
     <div class="row" style="align-items:flex-end">
-      <label class="field" style="width:76px"><span>Значок</span><input class="input center" name="emoji" maxlength="4" value="${esc(c?.emoji || '🏷️')}" style="font-size:22px;padding:8px"></label>
+      <input type="hidden" name="emoji" value="${esc(a?.emoji || '💳')}">
       <label class="field grow"><span>Название</span><input class="input" name="name" maxlength="40" required value="${esc(c?.name || '')}" ${c ? '' : 'autofocus'}></label>
     </div>
     ${k === 'expense' ? `<label class="field"><span>Лимит на месяц, ${esc(cur())}</span><input class="input" name="limit" inputmode="decimal" placeholder="Без лимита" value="${c?.limit || ''}"></label>` : ''}
@@ -817,21 +854,21 @@ SCREENS.goals = async () => {
     return `<div class="card goal-card" data-goal="${g.id}">
       ${miniRing(p, { text: `${Math.min(999, Math.round(p * 100))}%` })}
       <div class="grow">
-        <div class="row between"><b class="ellipsis" style="font-size:16px">${esc(g.emoji)} ${esc(g.title)}</b>${g.done ? '<span class="pill good">✓ достигнута</span>' : ''}</div>
-        <div class="num" style="margin:2px 0"><b>${money(g.saved)}</b> <span class="muted small">из ${money(g.target)}</span></div>
+        <div class="row between"><span class="g-title ellipsis">${esc(g.emoji)} ${esc(g.title)}</span>${g.done ? '<span class="pill gold">достигнута</span>' : ''}</div>
+        <div style="margin:3px 0"><b class="num" style="font-size:16px">${money(g.saved)}</b> <span class="muted small">из ${money(g.target)}</span></div>
         <div class="tiny muted">${[g.deadline ? `до ${fmtDate(g.deadline)}` : '', need, !g.done && g.saved < g.target ? `осталось ${money(g.target - g.saved)}` : ''].filter(Boolean).join(' · ')}</div>
         <div class="row" style="margin-top:10px;gap:8px">
           ${g.done ? '' : `<button class="btn sm primary" data-in="${g.id}">+ Пополнить</button>`}
           ${g.saved > 0 ? `<button class="btn sm" data-out="${g.id}">Снять</button>` : ''}
-          <button class="btn sm ghost" data-edit="${g.id}" aria-label="Изменить">✎</button>
+          <button class="btn sm ghost" data-edit="${g.id}" aria-label="Изменить">${I.pencil}</button>
         </div>
       </div></div>`;
   };
   return {
     html: `${topbar('Цели', `В целях: ${money(ref.totals.inGoals)}`, '<button class="btn primary sm" data-new>+ Цель</button>')}
-      ${active.length ? `<div class="grid-2">${active.map(card).join('')}</div>` : `<div class="card empty"><div class="e-ico">🎯</div>Целей пока нет.<br><span class="small">Машина, отпуск, ремонт — поставьте цель и откладывайте понемногу.</span><br><br><button class="btn primary" data-new>Создать цель</button></div>`}
-      ${done.length ? `<h2 style="font-size:15px;margin:18px 2px 10px" class="muted">Достигнутые</h2><div class="grid-2">${done.map(card).join('')}</div>` : ''}
-      <div class="card small muted">✈️ В Telegram: <span class="kbd">цель машина 20000</span> — пополнить, <span class="kbd">из цели машина 5000</span> — снять.</div>`,
+      ${active.length ? `<div class="grid-2">${active.map(card).join('')}</div>` : `<div class="card">${empty('target', 'Целей пока нет', '<span class="small">Машина, отпуск, ремонт — поставьте цель и откладывайте понемногу.</span><br><button class="btn primary" data-new style="margin-top:14px">Создать цель</button>')}</div>`}
+      ${done.length ? `<div class="day-head" style="padding:18px 2px 8px">Достигнутые</div><div class="grid-2">${done.map(card).join('')}</div>` : ''}
+      ${note('В Telegram: <span class="kbd">цель машина 20000</span> — пополнить, <span class="kbd">из цели машина 5000</span> — снять.')}`,
     mount(root) {
       root.addEventListener('click', (e) => {
         if (e.target.closest('[data-new]')) return openGoalSheet();
@@ -884,7 +921,7 @@ async function openGoalSheet(g = null) {
     busy($('.btn.primary', f), async () => {
       try {
         await api(g ? `/goals/${g.id}` : '/goals', { method: g ? 'PATCH' : 'POST', body });
-        s.close(); dropRef(); toast(g ? 'Сохранено' : 'Цель создана 🎯'); refresh();
+        s.close(); dropRef(); toast(g ? 'Сохранено' : 'Цель создана'); refresh();
       } catch (ex) { $('[data-err]', f).textContent = ex.message; }
     });
   });
@@ -911,7 +948,7 @@ async function openContribute(g, dir) {
       try {
         const r = await api(`/goals/${g.id}/contribute`, { method: 'POST', body: { amount, accountId: Number(f.accountId.value), direction: dir } });
         s.close(); dropRef();
-        if (r.goal.done && !g.done) { confetti(); toast(`🎉 Цель «${g.title}» достигнута!`, '', 4000); } else toast(dir === 'in' ? `🎯 +${money(amount)}` : `Снято ${money(amount)}`);
+        if (r.goal.done && !g.done) { confetti(); toast(`Цель «${g.title}» достигнута!`, '', 4000); } else toast(dir === 'in' ? `Отложено ${money(amount)}` : `Снято ${money(amount)}`);
         refresh();
       } catch (ex) { $('[data-err]', f).textContent = ex.message; }
     });
@@ -929,7 +966,7 @@ SCREENS.plans = async () => {
   const row = (x) => {
     const c = catOf(x.categoryId);
     return `<div class="item" data-plan="${x.id}">
-      <button class="check ${x.done ? 'on' : ''}" data-check="${x.id}" aria-label="${x.done ? 'Вернуть в список' : 'Купили'}"></button>
+      <button class="check ${x.done ? 'on' : ''}" data-check="${x.id}" aria-label="${x.done ? 'Вернуть в список' : 'Купили'}">${x.done ? I.check : ''}</button>
       <div class="grow"><div class="t ellipsis ${x.done ? 'done-t' : ''}">${esc(x.title)}</div><div class="s">${c ? `${esc(c.emoji)} ${esc(c.name)}` : 'без категории'}</div></div>
       <div class="amt num ${x.done ? 'dim' : ''}">${x.amount ? money(x.amount) : '—'}</div></div>`;
   };
@@ -940,15 +977,15 @@ SCREENS.plans = async () => {
       <div class="card hero">
         <div class="row between"><div><div class="label">Осталось купить</div><div class="big">${counted(leftSum)}</div>
           <div class="meta">${done.length} из ${p.plans.length} куплено${after !== null && (isCur || m > curMonth()) ? ` · после покупок останется <b class="${after < 0 ? 'exp' : ''}">${money(after)}</b>` : ''}</div></div>
-          ${miniRing(p.plans.length ? done.length / p.plans.length : 0, { size: 72, stroke: 8, color: '#22d3ee', text: `${done.length}/${p.plans.length}` })}</div>
+          ${miniRing(p.plans.length ? done.length / p.plans.length : 0, { size: 72, stroke: 8, text: `${done.length}/${p.plans.length}` })}</div>
       </div>
       <form class="card row" data-add style="gap:8px">
         <input class="input grow" name="title" maxlength="120" placeholder="Что купить?" required>
         <input class="input" name="amount" inputmode="decimal" placeholder="Сумма" style="width:110px">
         <button class="btn primary" aria-label="Добавить">${I.plus.replace('<svg', '<svg width="20" height="20"')}</button>
       </form>
-      <div class="card">${p.plans.length ? `<div class="list">${left.map(row).join('')}${done.map(row).join('')}</div>` : '<div class="empty"><div class="e-ico">🛍</div>Список пуст</div>'}</div>
-      <div class="card small muted">✈️ В Telegram: <span class="kbd">купить пылесос 80000</span>, <span class="kbd">нужно купить молоко</span>, а /plans покажет список с кнопками «Купили».</div>`,
+      <div class="card">${p.plans.length ? `<div class="list">${left.map(row).join('')}${done.map(row).join('')}</div>` : empty('bag', 'Список пуст', '<span class="small">Добавьте, что нужно купить в этом месяце</span>')}</div>
+      ${note('В Telegram: <span class="kbd">купить пылесос 80000</span>, <span class="kbd">нужно купить молоко</span>, а <span class="kbd">/plans</span> покажет список с кнопками «Купили».')}`,
     mount(root) {
       bindMonth(root, () => state.month, (v) => { state.month = v; });
       $('[data-add]', root).addEventListener('submit', (e) => {
@@ -996,13 +1033,13 @@ function openBuySheet(x, ref) {
       <label class="field"><span>Со счёта</span><select class="input" name="accountId">${accs.map((a) => `<option value="${a.id}" ${a.isDefault ? 'selected' : ''}>${esc(a.emoji || '')} ${esc(a.name)}</option>`).join('')}</select></label>
     </div>
     <div class="err" data-err></div>
-    <div class="sheet-actions"><button type="button" class="btn ghost" data-skip>Без траты</button><button class="btn primary">✓ Записать трату</button></div>
+    <div class="sheet-actions"><button type="button" class="btn ghost" data-skip>Без траты</button><button class="btn primary">${I.check} Записать трату</button></div>
   </form>`);
   const f = $('form', s.el);
   const send = (body, btn) => busy(btn, async () => {
     try {
       await api(`/plans/${x.id}/buy`, { method: 'POST', body });
-      s.close(); dropRef(); toast(body.amount ? `✓ Куплено · ${money(-body.amount)}` : '✓ Отмечено'); refresh();
+      s.close(); dropRef(); toast(body.amount ? `Куплено · ${money(-body.amount)}` : 'Отмечено'); refresh();
     } catch (ex) { $('[data-err]', f).textContent = ex.message; }
   });
   $('[data-skip]', f).addEventListener('click', (e) => send({ amount: 0 }, e.currentTarget));
@@ -1051,8 +1088,8 @@ SCREENS.accounts = async () => {
   const accCard = (a) => {
     const saving = a.kind === 'deposit' || a.kind === 'savings';
     return `<div class="item" data-acc="${a.id}">
-      <div class="ico">${esc(a.emoji || KIND_EMOJI[a.kind])}</div>
-      <div class="grow"><div class="t">${esc(a.name)} ${a.isDefault ? '<span class="pill" style="font-size:10.5px;padding:2px 8px">основной</span>' : ''}</div>
+      <div class="ico">${KIND_ICON[a.kind] || I.coins}</div>
+      <div class="grow"><div class="t">${esc(a.name)} ${a.isDefault ? '<span class="pill gold" style="font-size:10.5px;padding:2px 8px;margin-left:4px">основной</span>' : ''}</div>
         <div class="s">${KIND[a.kind]}${saving && a.rate ? ` · ${a.rate}% годовых · ≈ ${money(Math.round((Math.max(0, a.balance) * a.rate) / 100 / 12))}/мес` : ''}</div></div>
       <div class="amt num ${a.balance < 0 ? 'exp' : ''}">${money(a.balance)}</div></div>`;
   };
@@ -1061,14 +1098,14 @@ SCREENS.accounts = async () => {
       <div class="card hero"><div class="label">Всего денег у семьи</div><div class="big">${counted(t.net)}</div>
         <div class="meta">карты и наличные + депозит + цели</div></div>
       <div class="tiles">
-        <div class="tile"><div class="t-label">💳 Доступно</div><div class="t-val">${counted(t.available)}</div></div>
-        <div class="tile"><div class="t-label">🏦 Депозит</div><div class="t-val">${counted(t.deposit)}</div></div>
-        <div class="tile" data-go="#/goals"><div class="t-label">🎯 В целях</div><div class="t-val">${counted(t.inGoals)}</div></div>
-        <div class="tile" data-transfer><div class="t-label">↔️ Перевод</div><div class="t-val small" style="font-size:14px;padding-top:4px">между счетами →</div></div>
+        <div class="tile"><div class="t-label">${I.card}Доступно</div><div class="t-val">${counted(t.available)}</div></div>
+        <div class="tile"><div class="t-label">${I.bank}Депозит</div><div class="t-val">${counted(t.deposit)}</div></div>
+        <div class="tile" data-go="#/goals"><div class="t-label">${I.target}В целях</div><div class="t-val">${counted(t.inGoals)}</div></div>
+        <div class="tile" data-transfer><div class="t-label">${I.transfer}Перевод</div><div class="t-val" style="font-size:15px;padding-top:5px;font-family:var(--sans)">между счетами</div></div>
       </div>
       <div class="card"><div class="list">${live.map(accCard).join('')}</div></div>
       ${arch.length ? `<div class="card"><div class="card-head"><h2 class="muted">Архив</h2></div><div class="list">${arch.map(accCard).join('')}</div></div>` : ''}
-      <div class="card small muted">✈️ В Telegram: <span class="kbd">в депозит 50000</span>, <span class="kbd">снял с депозита 20000</span>, <span class="kbd">снял наличные 10000</span>, <span class="kbd">кофе 1200 налом</span>.</div>`,
+      ${note('В Telegram: <span class="kbd">в депозит 50000</span>, <span class="kbd">снял с депозита 20000</span>, <span class="kbd">снял наличные 10000</span>, <span class="kbd">кофе 1200 налом</span>.')}`,
     mount(root) {
       root.addEventListener('click', (e) => {
         if (e.target.closest('[data-new]')) return openAccountSheet();
@@ -1089,7 +1126,7 @@ function openAccountSheet(a = null) {
       <label class="field grow"><span>Название</span><input class="input" name="name" maxlength="40" value="${esc(a?.name || '')}" placeholder="Kaspi Gold, Halyk депозит…" ${a ? '' : 'autofocus'}></label>
     </div>
     <div class="two">
-      <label class="field"><span>Тип</span><select class="input" name="kind">${Object.entries(KIND).map(([k, l]) => `<option value="${k}" ${k === (a?.kind || 'card') ? 'selected' : ''}>${KIND_EMOJI[k]} ${l}</option>`).join('')}</select></label>
+      <label class="field"><span>Тип</span><select class="input" name="kind">${Object.entries(KIND).map(([k, l]) => `<option value="${k}" ${k === (a?.kind || 'card') ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
       <label class="field" data-rate><span>Ставка, % годовых</span><input class="input" name="rate" inputmode="decimal" value="${a?.rate || ''}" placeholder="14"></label>
     </div>
     <label class="field"><span>${a ? 'Фактический остаток сейчас' : 'Остаток сейчас'}, ${esc(cur())}</span><input class="input" name="balance" inputmode="decimal" value="${a ? a.balance : ''}" placeholder="0"></label>
@@ -1139,15 +1176,15 @@ SCREENS.family = async () => {
   const tg = me.user.telegram;
   const owner = d.isOwner;
   const tgCard = `<div class="card">
-    <div class="card-head"><h2>✈️ Telegram</h2>${tg.linked ? '<span class="pill good">привязан</span>' : ''}</div>
+    <div class="card-head"><h2>Telegram</h2>${tg.linked ? '<span class="pill good">привязан</span>' : ''}</div>
     ${!bot.enabled ? '<div class="small muted">Бот ещё не подключён на сервере. Как только администратор добавит токен бота, здесь появится кнопка привязки.</div>'
     : tg.linked ? `<div class="small" style="margin-bottom:12px">Аккаунт ${tg.username ? `<b>@${esc(tg.username)}</b>` : ''} привязан. Пишите траты боту ${bot.username ? `<a href="https://t.me/${esc(bot.username)}" target="_blank" rel="noopener">@${esc(bot.username)}</a>` : ''} или в семейный чат с ботом.</div>
         <label class="row" style="margin-bottom:12px"><span class="grow small">Уведомлять о тратах семьи</span><span class="switch"><input type="checkbox" data-notify ${me.user.tgNotify ? 'checked' : ''}><i></i></span></label>
         <div class="row"><a class="btn sm primary" href="https://t.me/${esc(bot.username || '')}" target="_blank" rel="noopener">Открыть бота</a><button class="btn sm ghost" data-unlink>Отвязать</button></div>`
       : `<div class="small muted" style="margin-bottom:12px">Привяжите Telegram — и пишите траты прямо в чат: «продукты 5400», «такси 1500». Бот сам поймёт категорию и посчитает остаток.</div>
-        <button class="btn primary block" data-link>Привязать Telegram</button><div data-link-box></div>`}
+        <button class="btn primary block" data-link>${I.tg} Привязать Telegram</button><div data-link-box></div>`}
     <div style="margin-top:14px" class="tg-examples">${['продукты 5к', 'такси 1 500', 'кофе 1200 налом', '+300000 зарплата', 'в депозит 50000', 'цель машина 20000', 'купить пылесос 80000', 'вчера аптека 3400', '/balance'].map((x) => `<span class="kbd">${esc(x)}</span>`).join('')}</div>
-    ${bot.enabled ? '<p class="tiny muted" style="margin:12px 0 0">👨‍👩‍👧 Можно добавить бота в общий семейный чат — он запишет траты каждого, кто привязал аккаунт.</p>' : ''}
+    ${bot.enabled ? '<p class="tiny muted" style="margin:12px 0 0">Бота можно добавить в общий семейный чат — он запишет траты каждого, кто привязал аккаунт.</p>' : ''}
   </div>`;
   return {
     html: `${topbar('Семья', esc(d.family.name), `<div class="avatars">${d.members.slice(0, 4).map((m) => avatar(m, 'sm')).join('')}</div>`)}
@@ -1155,8 +1192,8 @@ SCREENS.family = async () => {
       <div class="card">
         <div class="card-head"><h2>Участники · ${d.members.length}</h2></div>
         <div class="list">${d.members.map((m) => `<div class="item" ${owner && m.id !== me.user.id ? `data-member="${m.id}"` : ''} style="${owner && m.id !== me.user.id ? '' : 'cursor:default'}">
-          ${avatar(m)}<div class="grow"><div class="t">${esc(m.name)}${m.id === me.user.id ? ' <span class="dim">(вы)</span>' : ''}${m.isOwner ? ' 👑' : ''}</div>
-          <div class="s ellipsis">${esc(m.email)}${m.telegram ? ` · ✈️ ${m.tgUsername ? `@${esc(m.tgUsername)}` : 'Telegram'}` : ''}</div></div>
+          ${avatar(m)}<div class="grow"><div class="t">${esc(m.name)}${m.id === me.user.id ? ' <span class="dim">(вы)</span>' : ''}${m.isOwner ? ' <span class="pill gold" style="font-size:10.5px;padding:2px 8px;margin-left:2px">глава</span>' : ''}</div>
+          <div class="s ellipsis">${esc(m.email)}${m.telegram ? ` · ${m.tgUsername ? `@${esc(m.tgUsername)}` : 'Telegram'}` : ''}</div></div>
           <div class="amt num small">${money(m.spent)}<small>в этом месяце</small></div></div>`).join('')}</div>
       </div>
       <div class="card">
@@ -1164,9 +1201,9 @@ SCREENS.family = async () => {
         <div class="small muted" style="margin-bottom:10px">Отправьте ссылку мужу, жене, родителям — после регистрации они сразу попадут в ваш общий бюджет.</div>
         <div class="code-box"><span class="grow" data-url>${esc(d.inviteUrl)}</span></div>
         <div class="row" style="margin-top:10px;flex-wrap:wrap">
-          <button class="btn sm primary" data-copy>Скопировать</button>
-          ${navigator.share ? '<button class="btn sm" data-share>Поделиться</button>' : ''}
-          <a class="btn sm" href="https://t.me/share/url?url=${encodeURIComponent(d.inviteUrl)}&text=${encodeURIComponent('Присоединяйся к нашему семейному бюджету в Казыне 💰')}" target="_blank" rel="noopener">✈️ В Telegram</a>
+          <button class="btn sm primary" data-copy>${I.copy} Скопировать</button>
+          ${navigator.share ? `<button class="btn sm" data-share>${I.share} Поделиться</button>` : ''}
+          <a class="btn sm" href="https://t.me/share/url?url=${encodeURIComponent(d.inviteUrl)}&text=${encodeURIComponent('Присоединяйся к нашему семейному бюджету в Казыне')}" target="_blank" rel="noopener">${I.tg} Telegram</a>
           ${owner ? '<button class="btn sm ghost" data-reset>Новая ссылка</button>' : ''}
         </div>
       </div>
@@ -1178,7 +1215,7 @@ SCREENS.family = async () => {
       $('[data-copy]', root).addEventListener('click', async () => {
         try { await navigator.clipboard.writeText(url); toast('Ссылка скопирована'); } catch { toast(url, '', 5000); }
       });
-      $('[data-share]', root)?.addEventListener('click', () => navigator.share({ title: 'Казына', text: 'Присоединяйся к нашему семейному бюджету 💰', url }).catch(() => {}));
+      $('[data-share]', root)?.addEventListener('click', () => navigator.share({ title: 'Казына', text: 'Присоединяйся к нашему семейному бюджету', url }).catch(() => {}));
       $('[data-reset]', root)?.addEventListener('click', async () => {
         if (!(await confirmSheet('Старая ссылка перестанет работать.', { ok: 'Создать новую', danger: false }))) return;
         try { await api('/family/invite/reset', { method: 'POST' }); await loadMe(); refresh(); toast('Новая ссылка готова'); } catch (ex) { fail(ex); }
@@ -1204,7 +1241,7 @@ SCREENS.family = async () => {
             if (state.route !== 'family' || Date.now() - started > 30 * 60e3) return clearInterval(tgPoll);
             const me2 = await api('/me').catch(() => null);
             if (me2?.user.telegram.linked) {
-              clearInterval(tgPoll); state.me = me2; confetti(); toast('✈️ Telegram привязан!'); refresh();
+              clearInterval(tgPoll); state.me = me2; confetti(); toast('Telegram привязан'); refresh();
             }
           }, 3000);
         } catch (ex) { fail(ex); }
@@ -1217,7 +1254,7 @@ SCREENS.family = async () => {
         const m = e.target.closest('[data-member]');
         if (!m) return;
         const mem = d.members.find((x) => x.id === Number(m.dataset.member));
-        const s = openSheet(mem.name, `<div class="stack"><button class="btn block" data-owner>👑 Сделать главой семьи</button><button class="btn block danger" data-kick>Исключить из семьи</button></div>`);
+        const s = openSheet(mem.name, `<div class="stack"><button class="btn block" data-owner>Сделать главой семьи</button><button class="btn block danger" data-kick>Исключить из семьи</button></div>`);
         $('[data-owner]', s.el).onclick = async () => {
           s.close();
           if (!(await confirmSheet(`${esc(mem.name)} станет главой семьи. Вы останетесь участником.`, { ok: 'Передать', danger: false }))) return;
@@ -1268,10 +1305,10 @@ SCREENS.settings = async () => {
       <div class="card">
         <div class="card-head"><h2>Данные и приложение</h2></div>
         <div class="stack">
-          <a class="btn block ghost" href="/api/export.csv" download>⬇️ Экспорт всех операций (CSV)</a>
-          ${!standalone ? `<button class="btn block ghost" data-install>📲 Установить на телефон</button>` : ''}
-          <button class="btn block ghost" data-logout-all>Выйти на всех устройствах</button>
-          <button class="btn block danger" data-logout>Выйти</button>
+          <a class="btn block ghost" href="/api/export.csv" download>${I.download} Экспорт всех операций (CSV)</a>
+          ${!standalone ? `<button class="btn block ghost" data-install>${I.phone} Установить на телефон</button>` : ''}
+          <button class="btn block ghost" data-logout-all>${I.refresh} Выйти на всех устройствах</button>
+          <button class="btn block danger" data-logout>${I.logout} Выйти</button>
         </div>
       </div>
       </div>
@@ -1324,8 +1361,7 @@ function logoutLocal() {
 // ================= ВХОД / РЕГИСТРАЦИЯ / ПРИГЛАШЕНИЕ =================
 function authLayout(inner) {
   $('#app').innerHTML = `<div class="auth"><div class="auth-box">
-    <img class="auth-logo" src="/icons/icon-192.png" alt="">
-    <h1>Казына</h1><p class="tagline">Семейный бюджет, который считает сам</p>${inner}</div></div>`;
+    <div class="auth-head"><img class="auth-logo" src="/icons/icon-192.png" alt=""><h1>Казына</h1><p class="tagline">Семейный бюджет, который считает сам</p></div>${inner}</div></div>`;
   return $('.auth-box');
 }
 const loginForm = (email = '') => `<form class="card" data-login autocomplete="on">
@@ -1363,7 +1399,7 @@ function bindAuthForms(box) {
         await api('/auth/register', { method: 'POST', body: formObj(f) });
         sessionStorage.removeItem('pendingInvite');
         await afterAuth();
-        toast('Добро пожаловать! 🎉');
+        toast('Добро пожаловать в Казыну');
       } catch (ex) { $('[data-err]', f).textContent = ex.message; }
     });
   });
@@ -1374,22 +1410,22 @@ async function renderPublic(name, arg) {
     const box = authLayout(`${loginForm()}<div class="switch-link">Нет аккаунта? <a href="#/register">Зарегистрироваться</a></div>`);
     bindAuthForms(box);
   } else if (name === 'register') {
-    const box = authLayout(`<div class="features"><div><b>✈️</b>Траты через Telegram</div><div><b>📊</b>Графики и лимиты</div><div><b>👨‍👩‍👧</b>Общий бюджет</div></div>
+    const box = authLayout(`<div class="features"><div>${I.tg}Траты через Telegram</div><div>${I.pie}Графики и лимиты</div><div>${I.users}Общий бюджет</div></div>
       ${registerForm()}<div class="switch-link">Уже есть аккаунт? <a href="#/login">Войти</a></div>`);
     bindAuthForms(box);
   } else if (name === 'join') {
     const code = arg.toUpperCase();
     let info;
     try { info = await api(`/invite/${encodeURIComponent(code)}`); } catch (e) {
-      authLayout(`<div class="card center"><div style="font-size:40px">🔗</div><p>${esc(e.message)}</p><p class="small muted">Попросите прислать новую ссылку.</p>
+      authLayout(`<div class="card center">${empty('link', esc(e.message), '<span class="small">Попросите прислать новую ссылку.</span>')}
         <a class="btn primary block" href="${state.me ? '#/' : '#/login'}">${state.me ? 'На главную' : 'Войти'}</a></div>`);
       return;
     }
-    const head = `<div class="card invite-card"><div style="font-size:36px;margin-bottom:4px">👨‍👩‍👧</div><div class="muted small">${esc(info.owner)} приглашает вас в общий бюджет</div>
-      <div style="font-size:20px;font-weight:800;margin-top:4px">«${esc(info.family)}»</div><div class="tiny muted">${info.members} ${plural(info.members, 'участник', 'участника', 'участников')}</div></div>`;
+    const head = `<div class="card invite-card"><div class="empty" style="padding:4px 0 0">${ILL.family}</div><div class="muted small">${esc(info.owner)} приглашает вас в общий бюджет</div>
+      <div class="fam">«${esc(info.family)}»</div><div class="tiny muted">${info.members} ${plural(info.members, 'участник', 'участника', 'участников')}</div></div>`;
     if (state.me) {
       if (state.me.family.inviteCode === code) {
-        const box = authLayout(`${head}<div class="card center small muted">Вы уже в этой семье 🙂</div><a class="btn primary block" href="#/">На главную</a>`);
+        const box = authLayout(`${head}<div class="card center small muted">Вы уже в этой семье</div><a class="btn primary block" href="#/">На главную</a>`);
         return box;
       }
       const box = authLayout(`${head}<div class="card small muted">Вы войдёте в общий бюджет и будете видеть траты всей семьи. ${state.me.isOwner ? 'Если вы глава текущей семьи и в ней есть другие участники, сначала передайте главенство.' : ''}</div>
@@ -1397,7 +1433,7 @@ async function renderPublic(name, arg) {
       $('[data-join]', box).addEventListener('click', (e) => busy(e.currentTarget, async () => {
         try {
           await api('/family/join', { method: 'POST', body: { code } });
-          dropRef(); await loadMe(); $('#app').innerHTML = ''; go('#/'); confetti(); toast(`Вы в семье «${info.family}» 🎉`);
+          dropRef(); await loadMe(); $('#app').innerHTML = ''; go('#/'); confetti(); toast(`Вы в семье «${info.family}»`);
         } catch (ex) { $('[data-err]', box).textContent = ex.message; }
       }));
       return;

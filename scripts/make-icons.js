@@ -1,4 +1,4 @@
-// Генерирует PNG-иконки «Казыны» (кольцо бюджета на фиолетовом градиенте) без внешних зависимостей.
+// Генерирует PNG-иконки «Казыны» (золотое кольцо и знак ₸ на изумруде) без внешних зависимостей.
 // Запуск: npm run icons
 import fs from 'node:fs';
 import path from 'node:path';
@@ -6,10 +6,10 @@ import zlib from 'node:zlib';
 import { fileURLToPath } from 'node:url';
 
 const mix = (a, b, t) => a.map((v, i) => v + (b[i] - v) * t);
-const BG1 = [124, 58, 237]; // #7c3aed
-const BG2 = [6, 182, 212]; // #06b6d4
-const WHITE = [255, 255, 255];
-const GOLD = [250, 204, 21];
+const BG1 = [31, 90, 74]; // #1f5a4a
+const BG2 = [18, 58, 48]; // #123a30
+const WHITE = [246, 239, 226]; // #f6efe2
+const GOLD = [217, 164, 65]; // #d9a441
 
 // Фигуры в координатах 0..1; содержимое — в центральных 60% (безопасная зона maskable-иконки)
 function color(x, y) {
@@ -19,7 +19,7 @@ function color(x, y) {
   const r = Math.hypot(dx, dy);
   if (r >= 0.2 && r <= 0.29) {
     const a = (Math.atan2(dx, -dy) + 2 * Math.PI) % (2 * Math.PI); // 0 — сверху, по часовой
-    return a < Math.PI * 1.35 ? GOLD : mix(WHITE, bg, 0.35);
+    return a < Math.PI * 1.35 ? GOLD : mix(WHITE, bg, 0.78);
   }
   // знак ₸ в центре: верхняя черта, вторая черта, ножка
   if (Math.abs(dx) <= 0.1 && y >= 0.395 && y <= 0.425) return WHITE;

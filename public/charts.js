@@ -1,23 +1,18 @@
 // Самописные SVG-графики. Функции возвращают строку SVG; анимация запускается через animate(root).
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-let uid = 0;
 
 /** Кольцо прогресса бюджета. pct — 0..∞ (больше 1 — перерасход). */
 export function ring(pct, { size = 168, stroke = 14, label = '', sub = '', over = false } = {}) {
-  const id = `rg${++uid}`;
   const r = (size - stroke) / 2;
   const c = 2 * Math.PI * r;
   const p = Math.max(0, Math.min(1, pct));
   const off = c * (1 - p);
   return `<svg class="chart ring" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}" role="img" aria-label="${esc(label)} ${esc(sub)}">
-    <defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1">
-      ${over ? '<stop offset="0" stop-color="#fb7185"/><stop offset="1" stop-color="#f97316"/>' : '<stop offset="0" stop-color="#a78bfa"/><stop offset="1" stop-color="#22d3ee"/>'}
-    </linearGradient></defs>
-    <circle cx="${size / 2}" cy="${size / 2}" r="${r}" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="${stroke}"/>
-    <circle class="ring-val" cx="${size / 2}" cy="${size / 2}" r="${r}" fill="none" stroke="url(#${id})" stroke-width="${stroke}" stroke-linecap="round"
+    <circle class="ring-track" cx="${size / 2}" cy="${size / 2}" r="${r}" fill="none" stroke-width="${stroke}"/>
+    <circle class="ring-val${over ? ' over' : ''}" cx="${size / 2}" cy="${size / 2}" r="${r}" fill="none" stroke-width="${stroke}" stroke-linecap="round"
       stroke-dasharray="${c}" stroke-dashoffset="${c}" data-off="${off}" transform="rotate(-90 ${size / 2} ${size / 2})"/>
-    <text x="50%" y="47%" text-anchor="middle" class="ring-label">${esc(label)}</text>
-    <text x="50%" y="62%" text-anchor="middle" class="ring-sub">${esc(sub)}</text>
+    <text x="50%" y="49%" text-anchor="middle" class="ring-label">${esc(label)}</text>
+    <text x="50%" y="63%" text-anchor="middle" class="ring-sub">${esc(sub)}</text>
   </svg>`;
 }
 
@@ -37,7 +32,7 @@ export function donut(items, { size = 180, stroke = 22, center = '', sub = '' } 
     return seg;
   }).join('') : '';
   return `<svg class="chart donut" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}" role="img" aria-label="Расходы по категориям">
-    <circle cx="${size / 2}" cy="${size / 2}" r="${r}" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="${stroke}"/>
+    <circle class="donut-track" cx="${size / 2}" cy="${size / 2}" r="${r}" fill="none" stroke-width="${stroke}"/>
     ${segs}
     <text x="50%" y="48%" text-anchor="middle" class="donut-center">${esc(center)}</text>
     <text x="50%" y="61%" text-anchor="middle" class="donut-sub">${esc(sub)}</text>
@@ -98,8 +93,8 @@ export function trendChart(rows, { height = 170, fmtShort = String, monthName = 
   const grid = [0.25, 0.5, 0.75, 1].map((k) => `<line x1="${pad.l}" x2="${W - pad.r}" y1="${pad.t + ih * (1 - k)}" y2="${pad.t + ih * (1 - k)}" class="grid"/>`).join('');
   return `<svg class="chart trend" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Доходы и расходы по месяцам">
     <defs>
-      <linearGradient id="trInc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#34d399" stop-opacity=".35"/><stop offset="1" stop-color="#34d399" stop-opacity="0"/></linearGradient>
-      <linearGradient id="trExp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fb7185" stop-opacity=".35"/><stop offset="1" stop-color="#fb7185" stop-opacity="0"/></linearGradient>
+      <linearGradient id="trInc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="st-inc" stop-opacity=".22"/><stop offset="1" class="st-inc" stop-opacity="0"/></linearGradient>
+      <linearGradient id="trExp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="st-exp" stop-opacity=".18"/><stop offset="1" class="st-exp" stop-opacity="0"/></linearGradient>
     </defs>
     ${grid}
     <path class="area" d="${area('income')}" fill="url(#trInc)"/>
@@ -110,15 +105,14 @@ export function trendChart(rows, { height = 170, fmtShort = String, monthName = 
   </svg>`;
 }
 
-/** Мини-кольцо для целей. */
-export function miniRing(pct, { size = 64, stroke = 7, color = 'url(#gGoal)', text = '' } = {}) {
+/** Мини-кольцо для целей и покупок. tone: '' (золото) | 'green'. */
+export function miniRing(pct, { size = 64, stroke = 7, tone = '', text = '' } = {}) {
   const r = (size - stroke) / 2;
   const c = 2 * Math.PI * r;
   const p = Math.max(0, Math.min(1, pct));
   return `<svg class="chart mini-ring" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">
-    <defs><linearGradient id="gGoal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#facc15"/><stop offset="1" stop-color="#f97316"/></linearGradient></defs>
-    <circle cx="${size / 2}" cy="${size / 2}" r="${r}" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="${stroke}"/>
-    <circle class="ring-val" cx="${size / 2}" cy="${size / 2}" r="${r}" fill="none" stroke="${color}" stroke-width="${stroke}" stroke-linecap="round"
+    <circle class="ring-track" cx="${size / 2}" cy="${size / 2}" r="${r}" fill="none" stroke-width="${stroke}"/>
+    <circle class="ring-val ${tone}" cx="${size / 2}" cy="${size / 2}" r="${r}" fill="none" stroke-width="${stroke}" stroke-linecap="round"
       stroke-dasharray="${c}" stroke-dashoffset="${c}" data-off="${c * (1 - p)}" transform="rotate(-90 ${size / 2} ${size / 2})"/>
     <text x="50%" y="50%" dy=".35em" text-anchor="middle" class="mini-ring-text">${esc(text)}</text>
   </svg>`;

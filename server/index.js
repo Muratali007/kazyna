@@ -345,7 +345,7 @@ export async function createServer({ db, bot, secret = process.env.JWT_SECRET, p
     const kind = req.body.kind === 'income' ? 'income' : 'expense';
     const max = await db.get('SELECT COALESCE(MAX(sort), 0) AS m FROM categories WHERE family_id = ?', [req.family.id]);
     const { row } = await db.run('INSERT INTO categories (family_id, name, emoji, color, kind, limit_amount, keywords, sort) VALUES (?,?,?,?,?,?,?,?) RETURNING *', [
-      req.family.id, name, str(req.body.emoji, 8) || '🏷️', /^#[0-9a-f]{6}$/i.test(req.body.color || '') ? req.body.color : '#8b5cf6', kind,
+      req.family.id, name, str(req.body.emoji, 8) || '🏷️', /^#[0-9a-f]{6}$/i.test(req.body.color || '') ? req.body.color : '#17483b', kind,
       money(req.body.limit || 0, 'Лимит'), str(req.body.keywords, 300).toLowerCase(), Number(max.m) + 1,
     ]);
     res.status(201).json({ category: sCategory(row) });

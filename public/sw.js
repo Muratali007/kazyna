@@ -1,6 +1,6 @@
 // Service worker: сайт устанавливается как приложение и открывается без сети.
 // API не кэшируем — данные всегда свежие.
-const CACHE = 'kazyna-v1';
+const CACHE = 'kazyna-v2';
 
 self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', (e) => {
