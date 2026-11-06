@@ -3,6 +3,7 @@ services:
     name: kazyna
     runtime: node
     plan: free
+    region: frankfurt
     buildCommand: npm install
     startCommand: npm start
     healthCheckPath: /healthz
