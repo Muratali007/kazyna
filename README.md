@@ -36,20 +36,22 @@ TEST_DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres npm test 
 
 ## Деплой (Render + Neon)
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/Muratali007/kazyna)
+
 1. **Бот.** В [@BotFather](https://t.me/BotFather) выполните `/newbot` и получите токен. Чтобы бот видел сообщения в семейной группе, сделайте `/setprivacy` → выберите бота → **Disable**.
 2. **База.** На [neon.tech](https://neon.tech) создайте проект и скопируйте строку подключения `postgresql://…?sslmode=require`.
 3. **Код.** Загрузите репозиторий на GitHub.
 4. **Render.** New → Blueprint → выберите репозиторий (возьмётся `render.yaml`). Заполните переменные:
    - `DATABASE_URL` — строка из Neon;
    - `TELEGRAM_BOT_TOKEN` — токен бота;
-   - `PUBLIC_URL` — адрес сервиса, например `https://kazyna.onrender.com`. При старте сервер сам ставит webhook `PUBLIC_URL/tg/webhook` с секретным токеном.
+   Адрес сайта Render задаёт сам (`RENDER_EXTERNAL_URL`). При старте сервер ставит webhook `<адрес>/tg/webhook` с секретным токеном.
 5. **Чтобы сайт не засыпал.** В GitHub → Settings → Secrets and variables → Actions → Variables добавьте `SITE_URL` с адресом сайта. Workflow `keepalive.yml` будет открывать `/healthz` раз в 10 минут.
 
 | Переменная | Назначение |
 |---|---|
 | `DATABASE_URL` | Postgres. Если не задана, используется SQLite (`SQLITE_FILE`, по умолчанию `data/app.db`) |
 | `TELEGRAM_BOT_TOKEN` | токен бота. Без него бот выключен, сайт работает |
-| `PUBLIC_URL` | публичный адрес: для webhook, ссылок-приглашений и ссылки на сайт в боте |
+| `PUBLIC_URL` | публичный адрес для webhook, ссылок-приглашений и ссылки на сайт в боте. На Render необязателен: берётся `RENDER_EXTERNAL_URL` |
 | `JWT_SECRET` | секрет сессий. Если не задан, генерируется и хранится в базе |
 | `TELEGRAM_MODE=polling` | принудительно включить long polling вместо webhook |
 | `APP_TZ` | часовой пояс для «сегодня» (по умолчанию `Asia/Almaty`) |

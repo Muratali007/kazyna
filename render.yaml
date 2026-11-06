@@ -14,10 +14,9 @@ services:
         value: 22.14.0
       - key: JWT_SECRET
         generateValue: true
-      # Задаются в Render → Environment (в репозиторий не попадают)
+      # Спрашиваются при создании сервиса (в репозиторий не попадают).
+      # Адрес сайта для webhook бота берётся из RENDER_EXTERNAL_URL автоматически.
       - key: DATABASE_URL # строка подключения Neon
         sync: false
       - key: TELEGRAM_BOT_TOKEN # токен от @BotFather
-        sync: false
-      - key: PUBLIC_URL # https://<имя>.onrender.com — нужен для webhook бота
         sync: false

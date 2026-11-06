@@ -42,7 +42,7 @@ const sTx = (t) => ({
 });
 const sPlan = (p) => ({ id: p.id, title: p.title, amount: fromMinor(p.amount), month: p.month, categoryId: p.category_id, done: !!p.done, txId: p.tx_id, createdBy: p.created_by });
 
-export async function createServer({ db, bot, secret = process.env.JWT_SECRET, publicUrl = process.env.PUBLIC_URL, log = console } = {}) {
+export async function createServer({ db, bot, secret = process.env.JWT_SECRET, publicUrl = process.env.PUBLIC_URL || process.env.RENDER_EXTERNAL_URL, log = console } = {}) {
   db = db || (await openDb());
   if (!secret) {
     const row = await db.get('SELECT v FROM kv WHERE k = ?', ['jwt_secret']);
