@@ -27,3 +27,17 @@ jobs:
         run: npm test
         env:
           TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
+
+  deploy:
+    # После зелёных тестов на main — запускаем деплой на Render через Deploy Hook
+    # (секрет RENDER_DEPLOY_HOOK: Render → сервис → Settings → Deploy Hook).
+    needs: test
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Render
+        env:
+          HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then echo "RENDER_DEPLOY_HOOK не задан — пропускаю"; exit 0; fi
+          curl -fsS -X POST "$HOOK" > /dev/null && echo "Деплой запущен"
