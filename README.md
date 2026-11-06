@@ -45,7 +45,8 @@ TEST_DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres npm test 
    - `DATABASE_URL` — строка из Neon;
    - `TELEGRAM_BOT_TOKEN` — токен бота;
    Адрес сайта Render задаёт сам (`RENDER_EXTERNAL_URL`). При старте сервер ставит webhook `<адрес>/tg/webhook` с секретным токеном.
-5. **Чтобы сайт не засыпал.** В GitHub → Settings → Secrets and variables → Actions → Variables добавьте `SITE_URL` с адресом сайта. Workflow `keepalive.yml` будет открывать `/healthz` раз в 10 минут.
+5. **Автодеплой.** Render → сервис → Settings → Deploy Hook. Сохраните ссылку в GitHub → Settings → Secrets → Actions как `RENDER_DEPLOY_HOOK`. После зелёных тестов на `main` workflow `test.yml` сам запускает деплой.
+6. **Чтобы сайт не засыпал.** В GitHub → Settings → Secrets and variables → Actions → Variables добавьте `SITE_URL` с адресом сайта. Workflow `keepalive.yml` будет открывать `/healthz` раз в 10 минут.
 
 | Переменная | Назначение |
 |---|---|
